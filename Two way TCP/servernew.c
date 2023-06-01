@@ -29,7 +29,7 @@ void main()
     message = read(clientSocket, buffer, BUFFER_SIZE);
     printf("Message recieved is : \n%s", buffer);
 
-    strcpy(buffer, "ayin nee eetha naaye");
+    strcpy(buffer, "NIKHIT KUMAR");
     send(clientSocket, buffer, BUFFER_SIZE, 0);
 
     close(clientSocket);
