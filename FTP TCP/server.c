@@ -49,7 +49,7 @@ int main() {
     printf("Client connected: %s:%d\n", inet_ntoa(clientAddress.sin_addr), ntohs(clientAddress.sin_port));
 
     // Open the file for reading
-    file = fopen("file.txt", "rb");
+    file = fopen("file.txt", "r");
     if (file == NULL) {
         perror("Failed to open file");
         exit(EXIT_FAILURE);

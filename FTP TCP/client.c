@@ -36,7 +36,7 @@ int main() {
     }
 
     // Open a file for writing
-    file = fopen("received_file.txt", "wb");
+    file = fopen("received_file.txt", "w");
     if (file == NULL) {
         perror("Failed to create file");
         return -1;
