@@ -56,7 +56,7 @@ int main()
         printf("Received frame: %s\n", buffer);
 
         // Simulate processing time
-        sleep(1);
+        sleep(3);
 
         // Send acknowledgement back to the client
         send(clientSocket, "ACK", 3, 0);
