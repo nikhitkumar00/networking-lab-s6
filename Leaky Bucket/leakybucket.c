@@ -15,6 +15,10 @@ void main()
     {
         printf("\nEnter the incoming packet size\n");
         scanf("%d", &incoming_packet_size);
+        if (incoming_packet_size == -1)
+        {
+            break;
+        }
 
         if(incoming_packet_size <= bucket_size)
         {
@@ -40,12 +44,6 @@ void main()
         current_bucket_size = current_bucket_size - current_outgoing_size;
         printf("\nBucket used %d out of %d\n", current_bucket_size, bucket_size);
 
-        printf("\nDo you wish to stop the program\n");
-        scanf("%d", &stop);
-        if (stop == 1)
-        {
-            break;
-        }
     }
     printf("\n\nHAVE A WONDERFUL DAY!!!\n\n");
 }
