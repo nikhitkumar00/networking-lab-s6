@@ -43,7 +43,6 @@ void main()
         
         current_bucket_size = current_bucket_size - current_outgoing_size;
         printf("\nBucket used %d out of %d\n", current_bucket_size, bucket_size);
-
     }
     printf("\n\nHAVE A WONDERFUL DAY!!!\n\n");
 }
