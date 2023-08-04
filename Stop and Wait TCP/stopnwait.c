@@ -1,33 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <unistd.h>
 #include <time.h>
+#include <unistd.h>
 
-void sendFrame(int frameNumber) {
-    printf("Sending frame: %d\n", frameNumber);
-}
+void main()
+{
+    int frame_number = 0;
 
-bool receiveAck() {
-    srand(time(NULL));
-    return rand() % 2 == 0;
-}
+    while (1)
+    {
+        printf("\nSending Frame : %d", frame_number);
 
-int main() {
-    int frameNumber = 0;
-    
-    while (true) {
-        sendFrame(frameNumber);
-        sleep(2);
-        bool ackReceived = receiveAck();
-        
-        if (ackReceived) {
-            printf("Acknowledgment received for frame: %d\n", frameNumber);
-            frameNumber++;
-        } else {
-            printf("No acknowledgment received for frame: %d\n", frameNumber);
+        srand(time(NULL));
+        sleep(3);
+
+        if (rand() % 2 == 0)
+        {
+            printf("\nAcknowledgement Recieved Successfully\n\n");
         }
+        else
+        {
+            printf("\nAcknowledgement not Recieved\nResending Frame : %d\n\n", frame_number);
+            continue;
+        }
+
+        frame_number++;
     }
-    
-    return 0;
 }
