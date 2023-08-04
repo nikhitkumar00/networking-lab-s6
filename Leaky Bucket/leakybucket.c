@@ -13,7 +13,7 @@ void main()
 
     while (1)
     {
-        printf("\nEnter the incoming packet size\n");
+        printf("\nEnter the incoming packet size\n(Enter -1 to stop)\n");
         scanf("%d", &incoming_packet_size);
         if (incoming_packet_size == -1)
         {
