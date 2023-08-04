@@ -9,7 +9,7 @@ void sendFrame(int frameNumber) {
 }
 
 bool receiveAck() {
-    srand(rand());
+    srand(time(NULL));
     return rand() % 2 == 0;
 }
 
