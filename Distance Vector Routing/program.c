@@ -38,7 +38,6 @@ void initialize(struct DistanceVector dv[], int n, int source)
 			}
 		}
 	}
-
 	dv[source].cost[source] = 0;
 }
 
