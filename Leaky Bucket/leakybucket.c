@@ -1,29 +1,51 @@
 #include <stdio.h>
-int main()
+void main()
 {
-    int incoming, outgoing, buck_size, n, store = 0;
-    printf("Enter bucket size, outgoing rate and no. of inputs: ");
-    scanf("%d %d %d", &buck_size, &outgoing, &n);
-    while (n != 0)
+    int incoming_packet_size, outgoing_packet_size;
+    int current_bucket_size = 0, bucket_size;
+    int overflow, current_outgoing_size, stop;
+
+    printf("\nEnter the following details in order");
+    printf("\n\t1 : Bucket Size");
+    printf("\n\t2 : Outgoing Packet Size\n");
+    scanf("%d", &bucket_size);
+    scanf("%d", &outgoing_packet_size);
+
+    while (1)
     {
-        printf("Enter the incoming packet size: ");
-        scanf("%d", &incoming);
-        printf("Incoming packet size %d\n", incoming);
-        if (incoming <= (buck_size - store))
+        printf("\nEnter the incoming packet size\n");
+        scanf("%d", &incoming_packet_size);
+
+        if(incoming_packet_size <= bucket_size)
         {
-            store += incoming;
-            printf("Bucket buffer size %d out of %d\n", store, buck_size);
+            current_bucket_size = current_bucket_size + incoming_packet_size;
+            printf("\nBucket used %d out of %d", current_bucket_size, bucket_size);
         }
         else
         {
-            printf("Dropped %d no. of packets\n", incoming - (buck_size - store));
-            printf("Bucket buffer size %d out of %d\n", store, buck_size);
-            store = buck_size;
+            printf("\nOverflow Occurred");
+            overflow = incoming_packet_size - (bucket_size - current_bucket_size);
+            printf("\nDropped %d packets", overflow);
         }
-        store = store - outgoing;
-        if (store < 0)
-            store = 0;
-        printf("After outgoing %d packets left out of %d in buffer\n", store, buck_size);
-        n--;
+
+        current_outgoing_size = outgoing_packet_size;
+        if(current_outgoing_size > current_bucket_size)
+        {
+
+            current_outgoing_size = (current_bucket_size - current_outgoing_size) + outgoing_packet_size;
+        }
+
+        printf("\nPackets Outgoing %d out of %d", current_outgoing_size, current_bucket_size);
+        
+        current_bucket_size = current_bucket_size - current_outgoing_size;
+        printf("\nBucket used %d out of %d\n", current_bucket_size, bucket_size);
+
+        printf("\nDo you wish to stop the program\n");
+        scanf("%d", &stop);
+        if (stop == 1)
+        {
+            break;
+        }
     }
+    printf("\n\nHAVE A WONDERFUL DAY!!!\n\n");
 }
