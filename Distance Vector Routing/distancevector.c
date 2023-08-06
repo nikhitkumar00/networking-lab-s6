@@ -44,8 +44,6 @@ void main()
         }
     }
 
-    printf("\n\n999 represents infinity or no path exists\n\n");
-
     for (int i = 0; i < n; i++)
     {
         printf("\n\nRouter[%d] Table", i + 1);
