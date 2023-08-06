@@ -1,103 +1,67 @@
 #include <stdio.h>
 
-#define MAX_NODES 10
-#define INFINITY 9999
+int costMatrix[20][20], n;
 
-struct DistanceVector
+struct routers
 {
-	int cost[MAX_NODES];
-};
+	int distance[20];
+	int adjNodes[20];
+} node[20];
 
-void initialize(struct DistanceVector dv[], int n, int source)
+void readCostMatrix()
 {
-	int i, j, cost;
-
-	for (i = 0; i < n; i++)
+	int i, j;
+	printf("\nEnter cost matrix\n");
+	for (i = 0; i < n; ++i)
 	{
-		dv[i].cost[i] = 0;
-
-		for (j = i + 1; j < n; j++)
+		for (j = 0; j < n; ++j)
 		{
-			printf("Enter the cost of edge from node %d to node %d: ", i, j);
-			scanf("%d", &cost);
-
-			dv[i].cost[j] = cost;
-			dv[j].cost[i] = cost;
+			scanf("%d", &costMatrix[i][j]);
+			costMatrix[i][i] = 0;
+			node[i].distance[j] = costMatrix[i][j];
+			node[i].adjNodes[j] = j;
 		}
 	}
-
-	printf("\n");
-
-	for (i = 0; i < n; i++)
-	{
-		for (j = 0; j < n; j++)
-		{
-			if (i != j && dv[i].cost[j] == 0)
-			{
-				dv[i].cost[j] = INFINITY;
-			}
-		}
-	}
-	dv[source].cost[source] = 0;
 }
 
-void update(struct DistanceVector dv[], int n)
+void calcRoutingTable()
 {
-	int updated = 0;
-
 	int i, j, k;
-	for (i = 0; i < n; i++)
+	for (i = 0; i < n; ++i)
 	{
-		for (j = 0; j < n; j++)
+		for (j = 0; j < n; ++j)
 		{
-			for (k = 0; k < n; k++)
+			for (k = 0; k < n; ++k)
 			{
-				if (dv[i].cost[k] + dv[k].cost[j] < dv[i].cost[j])
+				if (node[i].distance[j] > costMatrix[i][k] + node[k].distance[j])
 				{
-					dv[i].cost[j] = dv[i].cost[k] + dv[k].cost[j];
-					updated = 1;
+					node[i].distance[j] = node[i].distance[k] + node[k].distance[j];
+					node[i].adjNodes[j] = k;
 				}
 			}
 		}
 	}
-
-	if (updated)
-		update(dv, n);
 }
 
-void printRoutingTable(struct DistanceVector dv[], int n)
+void displayRoutes()
 {
-	printf("Routing Table:\n");
-	printf("Node\tCost\n");
-
 	int i, j;
-	for (i = 0; i < n; i++)
+	for (i = 0; i < n; ++i)
 	{
-		printf("%d\t", i);
-
-		for (j = 0; j < n; j++)
-		{
-			printf("%d\t", dv[i].cost[j]);
-		}
-
+		printf("\nRouter %d\n", i + 1);
+		for (j = 0; j < n; ++j)
+			printf("Node %d via %d : Distance %d\n", j + 1, node[i].adjNodes[j] + 1, node[i].distance[j]);
 		printf("\n");
 	}
 }
 
 int main()
 {
-	int n, source;
-	struct DistanceVector dv[MAX_NODES];
-
-	printf("Enter the number of nodes: ");
+	int i, j;
+	printf("Number of nodes: ");
 	scanf("%d", &n);
-
-	printf("Enter the source node (0-%d): ", n - 1);
-	scanf("%d", &source);
-
-	initialize(dv, n, source);
-	update(dv, n);
-	printRoutingTable(dv, n);
-
+	readCostMatrix();
+	calcRoutingTable();
+	displayRoutes();
 	return 0;
 }
