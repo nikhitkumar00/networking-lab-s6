@@ -8,7 +8,7 @@
 
 void main()
 {
-    int base = 0, ackexpected = 0;
+    int base = 0;
     bool ackrecieved[999];
 
     for (int i = 0; i < 999; i++)
@@ -37,10 +37,9 @@ void main()
                     printf("\n\t\t\tNegative Acknowledge[%d] sent", i);
                 }
             }
-            if (ackrecieved[ackexpected] == true)
+            if (ackrecieved[base] == true)
             {
                 base++;
-                ackexpected++;
             }
         }
     }

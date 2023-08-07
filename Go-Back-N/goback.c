@@ -8,7 +8,7 @@
 
 void main()
 {
-    int base = 0, ackexpected = 0;
+    int base = 0;
     bool ackrecieved[999];
 
     for (int i = 0; i < 999; i++)
@@ -26,7 +26,7 @@ void main()
             sleep(1);
 
             srand(time(NULL));
-            if (rand() % 2 == 0 && ackexpected == i)
+            if (rand() % 2 == 0 && base == i)
             {
                 printf("\n\t\t\tAcknowledge[%d] recieved", i);
                 ackrecieved[i] = true;
@@ -36,10 +36,9 @@ void main()
                 ackrecieved[i] = false;
             }
 
-            if (ackrecieved[ackexpected] == true)
+            if (ackrecieved[base] == true)
             {
                 base++;
-                ackexpected++;
             }
         }
     }
