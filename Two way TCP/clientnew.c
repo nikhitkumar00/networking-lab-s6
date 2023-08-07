@@ -16,9 +16,9 @@ void main()
 
     clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(PORT);
-    serverAddress.sin_addr.s_addr = INADDR_ANY;
 
     connect(clientSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 
