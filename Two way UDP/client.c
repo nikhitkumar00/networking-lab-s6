@@ -15,34 +15,20 @@ int main()
     char buffer[BUFFER_SIZE] = {0};
     char message[BUFFER_SIZE];
 
-    // Create client socket
-    if ((clientSocket = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-    {
-        perror("Failed to create socket");
-        return -1;
-    }
+    clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(PORT);
-
-    // Convert IPv4 address from text to binary form
-    if (inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr) <= 0)
-    {
-        perror("Invalid address");
-        return -1;
-    }
 
     printf("Enter a string to send to the server: ");
     fgets(message, BUFFER_SIZE, stdin);
 
-    // Send message to the server
     sendto(clientSocket, message, strlen(message), 0, (struct sockaddr *)&serverAddress, serverAddressLength);
 
-    // Receive reversed string from server
     bytesRead = recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serverAddress, &serverAddressLength);
     printf("Reversed string received from server: %s\n", buffer);
 
-    // Close the socket
     close(clientSocket);
 
     return 0;
