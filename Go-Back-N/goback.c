@@ -20,10 +20,9 @@ void main()
     {
         for (int i = base; i < base + WINDOWSIZE; i++)
         {
-
             printf("\n\t\t\t\t\t\t[%d][%d][%d][%d]", base, base + 1, base + 2, base + 3);
             printf("\nFrame[%d] sent", i);
-            sleep(1);
+            sleep(3);
 
             srand(time(NULL));
             if (rand() % 2 == 0 && base == i)
