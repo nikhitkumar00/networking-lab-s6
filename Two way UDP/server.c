@@ -9,7 +9,7 @@
 
 int main()
 {
-    int serverSocket, bytesRead;
+    int serverSocket;
     struct sockaddr_in serverAddress, clientAddress;
     socklen_t clientAddressLength = sizeof(clientAddress);
     char buffer[BUFFER_SIZE] = {0};
@@ -22,7 +22,7 @@ int main()
 
     bind(serverSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 
-    bytesRead = recvfrom(serverSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, &clientAddressLength);
+    recvfrom(serverSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, &clientAddressLength);
     printf("Received message from client: %s\n", buffer);
 
     int length = strlen(buffer);

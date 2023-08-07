@@ -9,7 +9,7 @@
 
 void main()
 {
-    int clientSocket, message;
+    int clientSocket;
     struct sockaddr_in serverAddress;
     char buffer[BUFFER_SIZE] = {0};
     char newmessage[BUFFER_SIZE];
@@ -28,7 +28,7 @@ void main()
     send(clientSocket, newmessage, strlen(newmessage), 0);
     printf("Message sent to server.\n");
 
-    message = recv(clientSocket, buffer, BUFFER_SIZE, 0);
+    recv(clientSocket, buffer, BUFFER_SIZE, 0);
     printf("%s", buffer);
 
     close(clientSocket);

@@ -9,7 +9,7 @@
 
 int main()
 {
-    int clientSocket, bytesRead;
+    int clientSocket;
     struct sockaddr_in serverAddress;
     socklen_t serverAddressLength = sizeof(serverAddress);
     char buffer[BUFFER_SIZE] = {0};
@@ -26,7 +26,7 @@ int main()
 
     sendto(clientSocket, message, strlen(message), 0, (struct sockaddr *)&serverAddress, serverAddressLength);
 
-    bytesRead = recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serverAddress, &serverAddressLength);
+    recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serverAddress, &serverAddressLength);
     printf("Reversed string received from server: %s\n", buffer);
 
     close(clientSocket);
