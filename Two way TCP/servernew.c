@@ -26,8 +26,8 @@ void main()
 
     clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddress, (socklen_t *)&clientAddressLength);
 
-    message = read(clientSocket, buffer, BUFFER_SIZE);
-    printf("Message recieved is : \n%s", buffer);
+    message = recv(clientSocket, buffer, BUFFER_SIZE, 0);
+    printf("Message received: %s\n", buffer);
 
     strcpy(buffer, "NIKHIT KUMAR");
     send(clientSocket, buffer, BUFFER_SIZE, 0);
