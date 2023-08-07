@@ -22,7 +22,7 @@ void main()
         {
             printf("\n\t\t\t\t\t\t[%d][%d][%d][%d]", base, base + 1, base + 2, base + 3);
             printf("\nFrame[%d] sent", i);
-            sleep(3);
+            sleep(1);
 
             srand(time(NULL));
             if (rand() % 2 == 0 && base == i)
@@ -30,11 +30,6 @@ void main()
                 printf("\n\t\t\tAcknowledge[%d] recieved", i);
                 ackrecieved[i] = true;
             }
-            else
-            {
-                ackrecieved[i] = false;
-            }
-
             if (ackrecieved[base] == true)
             {
                 base++;
