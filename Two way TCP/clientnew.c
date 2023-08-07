@@ -18,8 +18,7 @@ void main()
 
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(PORT);
-
-    inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr);
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
 
     connect(clientSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 
@@ -29,7 +28,7 @@ void main()
     send(clientSocket, newmessage, strlen(newmessage), 0);
     printf("Message sent to server.\n");
 
-    message = read(clientSocket, buffer, BUFFER_SIZE, 0);
+    message = recv(clientSocket, buffer, BUFFER_SIZE, 0);
     printf("%s", buffer);
 
     close(clientSocket);
