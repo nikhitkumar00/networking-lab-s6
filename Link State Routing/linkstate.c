@@ -51,7 +51,7 @@ void main()
     for (int i = 0; i < numberofrouters; i++)
     {
         printf("\n\nMinimum Cost : %d", distance[i]);
-        printf("\t\tPath to router [%d] : %d", i, i);
+        printf("\t\tPath to router [%d] : [%d]", i, i);
         int temp = i;
         while (temp != sourcerouter)
         {
