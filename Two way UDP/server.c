@@ -11,8 +11,8 @@ int main()
 {
     int serverSocket;
     struct sockaddr_in serverAddress, clientAddress;
-    socklen_t clientAddressLength = sizeof(clientAddress);
-    char buffer[BUFFER_SIZE] = {0};
+    int clientAddressLength = sizeof(clientAddress);
+    char buffer[BUFFER_SIZE];
 
     serverSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -22,15 +22,15 @@ int main()
 
     bind(serverSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 
-    recvfrom(serverSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, &clientAddressLength);
+    recvfrom(serverSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, (socklen_t *)&clientAddressLength);
     printf("Received message from client: %s\n", buffer);
 
-    int length = strlen(buffer);
-    for (int i = 0; i < length / 2; i++)
+    int j = strlen(buffer) - 1;
+    for (int i = 0; i < j; i++, j--)
     {
         char temp = buffer[i];
-        buffer[i] = buffer[length - i - 1];
-        buffer[length - i - 1] = temp;
+        buffer[i] = buffer[j];
+        buffer[j] = temp;
     }
 
     sendto(serverSocket, buffer, strlen(buffer), 0, (struct sockaddr *)&clientAddress, clientAddressLength);

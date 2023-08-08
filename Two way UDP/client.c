@@ -11,8 +11,8 @@ int main()
 {
     int clientSocket;
     struct sockaddr_in serverAddress;
-    socklen_t serverAddressLength = sizeof(serverAddress);
-    char buffer[BUFFER_SIZE] = {0};
+    int serverAddressLength = sizeof(serverAddress);
+    char buffer[BUFFER_SIZE];
     char message[BUFFER_SIZE];
 
     clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
@@ -26,7 +26,7 @@ int main()
 
     sendto(clientSocket, message, strlen(message), 0, (struct sockaddr *)&serverAddress, serverAddressLength);
 
-    recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serverAddress, &serverAddressLength);
+    recvfrom(clientSocket, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&serverAddress, (socklen_t *)&serverAddressLength);
     printf("Reversed string received from server: %s\n", buffer);
 
     close(clientSocket);
