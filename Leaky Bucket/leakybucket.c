@@ -20,7 +20,7 @@ void main()
             break;
         }
 
-        if(incoming_packet_size <= bucket_size)
+        if(incoming_packet_size <= bucket_size - current_bucket_size)
         {
             current_bucket_size = current_bucket_size + incoming_packet_size;
             printf("\nBucket used %d out of %d", current_bucket_size, bucket_size);
@@ -30,13 +30,13 @@ void main()
             printf("\nOverflow Occurred");
             overflow = incoming_packet_size - (bucket_size - current_bucket_size);
             printf("\nDropped %d packets", overflow);
+            current_bucket_size = bucket_size;
         }
 
         current_outgoing_size = outgoing_packet_size;
         if(current_outgoing_size > current_bucket_size)
         {
-
-            current_outgoing_size = (current_bucket_size - current_outgoing_size) + outgoing_packet_size;
+            current_outgoing_size = current_bucket_size;
         }
 
         printf("\nPackets Outgoing %d out of %d", current_outgoing_size, current_bucket_size);
@@ -44,5 +44,4 @@ void main()
         current_bucket_size = current_bucket_size - current_outgoing_size;
         printf("\nBucket used %d out of %d\n", current_bucket_size, bucket_size);
     }
-    printf("\n\nHAVE A WONDERFUL DAY!!!\n\n");
 }
