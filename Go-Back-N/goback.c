@@ -29,9 +29,6 @@ void main()
             {
                 printf("\n\t\t\tAcknowledge[%d] recieved", i);
                 ackrecieved[i] = true;
-            }
-            if (ackrecieved[base] == true)
-            {
                 base++;
             }
         }
